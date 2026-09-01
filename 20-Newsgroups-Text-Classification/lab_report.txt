@@ -1,0 +1,59 @@
+Mount Mercy University
+DS 400 : Data Science Techniques I
+Lab Assignment 1 - Naive Bayes Classifier for 20 Newsgroups
+
+
+LAB REPORT
+
+INTRODUCTION
+This report details the implementation and evaluation of a Multinomial Naive Bayes classifier for the 20 Newsgroups text classification problem. The objective was to construct the classifier from first principles, without reliance on pre-built machine learning libraries, and to assess its performance on a real-world, multi-class text dataset.
+
+METHODOLOGY
+The provided dataset consists of 18,824 documents, partitioned into 20 distinct newsgroups. The data was preprocessed and split into training (11,269 documents) and testing (7,505 documents) subsets. Each document is represented as a bag-of-words, with word frequencies indexed according to a fixed vocabulary. The classifier was implemented to estimate class priors and word likelihoods using Laplace (add-one) smoothing, as prescribed by the multinomial Naive Bayes model.
+
+Data Loading:
+All input files (vocabulary, label mappings, training and testing data/labels) were parsed and loaded into appropriate data structures. The vocabulary and label mappings were used to interpret the indices in the data files.
+
+Model Training:
+For each class, the following quantities were computed:
+- The class prior probability, estimated as the proportion of training documents assigned to that class.
+- The total number of word occurrences in all documents of the class.
+- The frequency of each word in the vocabulary within the class.
+- The Bayesian estimator (with Laplace smoothing) for the probability of each word given the class.
+
+Prediction and Evaluation:
+The classifier computes, for each document, the posterior probability of each class given the observed word counts, and assigns the class with the highest posterior. Performance was evaluated on both the training and test sets, reporting:
+- Overall accuracy
+- Per-class accuracy
+- Confusion matrix
+
+RESULTS
+
+Class Priors:
+The estimated class priors are nearly uniform, reflecting the balanced nature of the dataset. Minor deviations are present for classes with fewer documents, such as 'talk.religion.misc'.
+
+Training Performance:
+Overall accuracy: 94.1%
+Per-class accuracy: Most classes exceed 92% accuracy. Lower performance is observed for 'misc.forsale' and 'talk.religion.misc', likely due to class overlap or less distinctive vocabulary.
+Confusion matrix: The majority of predictions are correct, with most errors occurring between semantically similar or overlapping classes.
+
+Test Performance:
+Overall accuracy: 78.1%
+Per-class accuracy: Most classes achieve 70-90% accuracy. The highest accuracy is observed for 'rec.sport.hockey' and 'soc.religion.christian' (above 90%), while 'talk.religion.misc' is notably lower (about 35%), likely due to class imbalance and ambiguity.
+Confusion matrix: Increased confusion is observed compared to the training set, particularly among related topics, but the classifier maintains robust performance overall.
+
+DISCUSSION
+The multinomial Naive Bayes classifier demonstrates strong performance on this multi-class text classification task. The high training accuracy indicates effective learning of class-conditional word distributions. The reduction in test accuracy is expected and reflects the model's generalization capability. Lower per-class accuracy for certain classes suggests that some topics are inherently more difficult to distinguish, possibly due to overlapping vocabulary or fewer training examples.
+
+The confusion matrices reveal that most misclassifications occur between related or ambiguous topics, which is consistent with the limitations of the bag-of-words model and the independence assumptions of Naive Bayes.
+
+ANSWERS TO ASSIGNMENT QUESTIONS
+Class priors: The priors are nearly uniform, consistent with the balanced dataset, with minor deviations for smaller classes.
+Confusion matrix: Most errors occur between similar or related newsgroups. The classifier is most accurate for classes with distinctive vocabulary.
+Test vs. training performance: Test accuracy is lower than training accuracy, as expected, but remains high, indicating good generalization. Some classes are more challenging due to overlap or limited data.
+
+CONCLUSION
+This assignment demonstrates that a simple, well-implemented Naive Bayes classifier can achieve strong results on a challenging, real-world text classification problem. The model's efficiency and effectiveness make it a valuable baseline for text analytics tasks.
+
+REFERENCES
+Ken Lang, Newsweeder: Learning to filter netnews, Proceedings of the Twelfth International Conference on Machine Learning, 331-339 (1995).
